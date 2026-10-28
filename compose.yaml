@@ -1,0 +1,40 @@
+services:
+  web:
+    build: .
+    ports:
+      - "127.0.0.1:${APP_PORT:-8080}:8000"
+    environment:
+      APP_TIMEZONE: ${APP_TIMEZONE:-America/Argentina/Buenos_Aires}
+      DB_HOST: db
+      DB_NAME: ${DB_NAME:-dmproducciones}
+      DB_USER: ${DB_USER:-dm}
+      DB_PASSWORD: ${DB_PASSWORD:?Completa DB_PASSWORD en .env}
+      ADMIN_USER: ${ADMIN_USER:-admin}
+      ADMIN_PASSWORD: ${ADMIN_PASSWORD:?Completa ADMIN_PASSWORD en .env}
+      WHATSAPP_TOKEN: ${WHATSAPP_TOKEN:-}
+      WHATSAPP_PHONE_NUMBER_ID: ${WHATSAPP_PHONE_NUMBER_ID:-}
+      WHATSAPP_TEMPLATE_NAME: ${WHATSAPP_TEMPLATE_NAME:-}
+      WHATSAPP_TEMPLATE_LANGUAGE: ${WHATSAPP_TEMPLATE_LANGUAGE:-es_AR}
+      WHATSAPP_API_VERSION: ${WHATSAPP_API_VERSION:-v23.0}
+    volumes:
+      - .:/app:ro
+    depends_on:
+      db:
+        condition: service_healthy
+  db:
+    image: mysql:8.4
+    environment:
+      MYSQL_DATABASE: ${DB_NAME:-dmproducciones}
+      MYSQL_USER: ${DB_USER:-dm}
+      MYSQL_PASSWORD: ${DB_PASSWORD:?Completa DB_PASSWORD en .env}
+      MYSQL_ROOT_PASSWORD: ${DB_ROOT_PASSWORD:?Completa DB_ROOT_PASSWORD en .env}
+    volumes:
+      - datos:/var/lib/mysql
+      - ./database.sql:/docker-entrypoint-initdb.d/01-database.sql:ro
+    healthcheck:
+      test: ["CMD-SHELL", "MYSQL_PWD=$$MYSQL_PASSWORD mysql -h 127.0.0.1 -u$$MYSQL_USER $$MYSQL_DATABASE -e 'SELECT 1' >/dev/null 2>&1"]
+      interval: 3s
+      timeout: 3s
+      retries: 40
+volumes:
+  datos:

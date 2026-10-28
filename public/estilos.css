@@ -1,0 +1,50 @@
+:root { color-scheme: light; font-family: Arial, sans-serif; color: #26332e; background: #f4f5f1; line-height: 1.5; }
+* { box-sizing: border-box; }
+body { margin: 0; }
+header { background: #fff; border-bottom: 1px solid #ddd; padding: 20px max(20px, calc((100vw - 1060px) / 2)); display: flex; gap: 20px; justify-content: space-between; align-items: center; }
+a { color: #245c4a; }
+.marca { font-size: 22px; font-weight: bold; text-decoration: none; white-space: nowrap; }
+nav { display: flex; gap: 18px; align-items: center; flex-wrap: wrap; }
+main { max-width: 1060px; margin: 32px auto; padding: 0 20px; min-height: 70vh; }
+h1 { font-size: 32px; line-height: 1.2; margin: 10px 0 16px; }
+h2 { font-size: 21px; margin: 24px 0 14px; }
+.presentacion { max-width: 650px; margin-bottom: 28px; }
+.etiqueta { font-size: 12px; letter-spacing: 2px; font-weight: bold; color: #577369; }
+.tarjeta { background: white; padding: 24px; border: 1px solid #dedfd8; border-radius: 8px; margin-bottom: 18px; }
+.tarjeta h2:first-child { margin-top: 0; }
+.campos { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+.ancho { grid-column: 1 / -1; }
+label { display: block; font-size: 14px; font-weight: bold; }
+input, select, textarea { font: inherit; color: inherit; width: 100%; display: block; margin-top: 6px; padding: 10px; background: #fff; border: 1px solid #aeb8b0; border-radius: 4px; }
+input:focus, select:focus, textarea:focus { outline: 2px solid #32775e; outline-offset: 1px; }
+fieldset { border: 1px solid #ddd; margin: 22px 0; padding: 16px; }
+legend { font-weight: bold; }
+.opcion { display: flex; align-items: flex-start; gap: 10px; margin: 10px 0; font-weight: normal; }
+.opcion input { width: auto; margin-top: 5px; }
+small { display: block; color: #59695f; font-weight: normal; }
+button, .boton { display: inline-block; font: inherit; background: #245c4a; color: #fff; border: 0; padding: 10px 18px; border-radius: 4px; cursor: pointer; text-decoration: none; }
+button:hover, .boton:hover { background: #173f32; }
+button:disabled { opacity: .6; cursor: wait; }
+.secundario { color: #37443c; background: #e8ece7; }
+.peligro { background: #923c34; }
+.enlace { background: transparent; color: #245c4a; padding: 0; text-decoration: underline; }
+.enlace:hover { background: transparent; }
+.ayuda { color: #5e6b63; font-size: 13px; }
+.aviso { background: #e1efe4; border-left: 4px solid #39794e; padding: 16px; }
+.errores { background: #fbe9e4; border-left: 4px solid #af4934; padding: 12px 20px; margin-bottom: 20px; }
+.estado { display: inline-block; border-radius: 20px; background: #eceee8; padding: 3px 12px; font-size: 13px; }
+.confirmada { background: #d9eddf; }
+.pendiente { background: #fff0cc; }
+.rechazada, .cancelada { background: #f6ded9; }
+.acciones { display: flex; gap: 10px; flex-wrap: wrap; align-items: center; margin-top: 18px; }
+.filtros { display: flex; gap: 12px; align-items: end; flex-wrap: wrap; margin: 24px 0; }
+.filtros label { min-width: 150px; }
+.detalle { display: grid; grid-template-columns: 1fr 1fr; gap: 8px 24px; }
+.detalle p { margin: 4px 0; overflow-wrap: anywhere; }
+.ingreso { max-width: 420px; margin: 40px auto; }
+.ingreso label { margin-bottom: 18px; }
+.tabla { overflow-x: auto; }
+table { border-collapse: collapse; width: 100%; background: white; }
+th, td { padding: 12px; text-align: left; border-bottom: 1px solid #ddd; }
+footer { text-align: center; color: #68756d; font-size: 13px; padding: 28px 20px; }
+@media (max-width: 650px) { header { align-items: flex-start; flex-direction: column; } main { margin-top: 24px; } .campos, .detalle { grid-template-columns: 1fr; } .tarjeta { padding: 18px; } h1 { font-size: 28px; } nav { font-size: 14px; } }
