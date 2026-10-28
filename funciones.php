@@ -40,16 +40,18 @@ function cabecera(string $titulo): void
     <!doctype html>
     <html lang="es"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
     <title><?= e($titulo) ?> | DM Producciones</title><link rel="stylesheet" href="/estilos.css"><script src="/app.js" defer></script></head>
-    <body><header><a class="marca" href="/">DM Producciones</a><nav><a href="/">Solicitar reserva</a>
+    <body><a class="saltar" href="#contenido">Ir al contenido</a><header class="cabecera"><a class="marca" href="/">DM <span>Producciones</span></a>
+    <button class="menu-boton" type="button" aria-expanded="false" aria-controls="navegacion" hidden>Menú <span aria-hidden="true">☰</span></button>
+    <nav id="navegacion" aria-label="Navegación principal"><a href="/">Inicio</a><a href="/#portafolio">Portafolio</a><a href="/#sobre-mi">Sobre mí</a><a href="/#equipo">Equipo</a><a href="/#drone">Tomas con drone</a><a href="/#preguntas">Preguntas frecuentes</a><a class="nav-reserva" href="/reservas.php">Reservar</a>
     <?php if (!empty($_SESSION['admin'])): ?><a href="/admin.php">Solicitudes</a><form action="/logout.php" method="post"><input type="hidden" name="csrf" value="<?= e(token()) ?>"><button class="enlace">Salir</button></form>
-    <?php else: ?><a href="/login.php">Administración</a><?php endif; ?></nav></header><main>
+    <?php else: ?><a href="/login.php">Administración</a><?php endif; ?></nav></header><main id="contenido">
     <?php if ($mensaje): ?><p class="aviso" role="status"><?= e($mensaje) ?></p><?php endif; ?>
     <?php
 }
 
 function pie(): void
 {
-    echo '</main><footer>DM Producciones · Fotografía y video para tus eventos</footer></body></html>';
+    echo '</main><footer><a class="marca" href="/">DM Producciones</a><p>Fotografía y video para tus eventos.</p><div class="footer-enlaces"><a href="/#portafolio">Ver coberturas</a><a href="/reservas.php">Solicitar una reserva</a><a href="/login.php">Administración</a></div></footer></body></html>';
 }
 
 // Un único bloqueo para la agenda evita que dos confirmaciones simultáneas se superpongan.

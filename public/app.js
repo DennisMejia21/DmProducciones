@@ -1,3 +1,26 @@
+const menu = document.querySelector('.menu-boton');
+const navegacion = document.querySelector('#navegacion');
+if (menu && navegacion) {
+    document.body.classList.add('menu-listo');
+    menu.hidden = false;
+    const cerrarMenu = () => {
+        menu.setAttribute('aria-expanded', 'false');
+        navegacion.classList.remove('abierto');
+    };
+    menu.addEventListener('click', () => {
+        const abierto = menu.getAttribute('aria-expanded') === 'true';
+        menu.setAttribute('aria-expanded', String(!abierto));
+        navegacion.classList.toggle('abierto', !abierto);
+    });
+    navegacion.querySelectorAll('a').forEach((enlace) => enlace.addEventListener('click', cerrarMenu));
+    document.addEventListener('keydown', (evento) => {
+        if (evento.key === 'Escape' && menu.getAttribute('aria-expanded') === 'true') {
+            cerrarMenu();
+            menu.focus();
+        }
+    });
+}
+
 const reserva = document.querySelector('#reserva');
 if (reserva) {
     reserva.addEventListener('submit', (event) => {

@@ -28,7 +28,7 @@ class Navegador:
             respuesta = error
         return respuesta.status, respuesta.read().decode(), respuesta.url
 
-    def token(self, ruta='/'):
+    def token(self, ruta='/reservas.php'):
         codigo, cuerpo, _ = self.pedir(ruta)
         assert codigo == 200
         return html.unescape(re.search(r'name="csrf" value="([^"]+)"', cuerpo)[1])
@@ -59,7 +59,7 @@ class Reservas(unittest.TestCase):
         }
 
     def crear(self, inicio='14:00', fin='16:00'):
-        codigo, cuerpo, _ = self.publico.pedir('/', self.datos(inicio, fin))
+        codigo, cuerpo, _ = self.publico.pedir('/reservas.php', self.datos(inicio, fin))
         self.assertEqual(codigo, 200)
         id_solicitud = re.search(r'Recibimos tu solicitud #(\d+)', cuerpo)
         self.assertIsNotNone(id_solicitud)
@@ -77,7 +77,7 @@ class Reservas(unittest.TestCase):
         codigo, _, url = anonimo.pedir('/admin.php')
         self.assertEqual(codigo, 200)
         self.assertTrue(url.endswith('/login.php'))
-        self.assertEqual(anonimo.pedir('/', {'csrf': 'incorrecto'})[0], 403)
+        self.assertEqual(anonimo.pedir('/reservas.php', {'csrf': 'incorrecto'})[0], 403)
         self.assertEqual(anonimo.pedir('/login.php', {
             'csrf': anonimo.token('/login.php'), 'usuario': 'admin', 'clave': 'incorrecta',
         })[0], 401)
@@ -96,7 +96,7 @@ class Reservas(unittest.TestCase):
             with self.subTest(cambios=list(cambios)):
                 datos = self.datos()
                 datos.update(cambios)
-                self.assertEqual(self.publico.pedir('/', datos)[0], 422)
+                self.assertEqual(self.publico.pedir('/reservas.php', datos)[0], 422)
 
     def test_03_reservas_y_estados(self):
         primera = self.crear()
@@ -107,7 +107,7 @@ class Reservas(unittest.TestCase):
         self.assertIn('Cliente &lt;prueba&gt;', respuesta)
         self.assertNotIn('Cliente <prueba>', respuesta)
         self.assertIn('se superpone', self.accion(segunda, 'confirmada'))
-        codigo, cuerpo, _ = self.publico.pedir('/', self.datos('15:30', '16:30'))
+        codigo, cuerpo, _ = self.publico.pedir('/reservas.php', self.datos('15:30', '16:30'))
         self.assertEqual(codigo, 422)
         self.assertIn('ya está reservado', cuerpo)
         # Terminar al comenzar el siguiente evento no constituye superposición.
@@ -131,7 +131,7 @@ class Reservas(unittest.TestCase):
     def test_04_clima_fuera_de_rango(self):
         datos = self.datos('12:00', '13:00')
         datos['fecha_evento'] = (datetime.date.today() + datetime.timedelta(days=60)).isoformat()
-        codigo, cuerpo, _ = self.publico.pedir('/', datos)
+        codigo, cuerpo, _ = self.publico.pedir('/reservas.php', datos)
         self.assertEqual(codigo, 200)
         id_solicitud = re.search(r'Recibimos tu solicitud #(\d+)', cuerpo)[1]
         codigo, cuerpo, _ = self.admin.pedir('/clima.php?id=' + id_solicitud)

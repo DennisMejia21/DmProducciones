@@ -31,6 +31,8 @@ El script del administrador crea la cuenta una sola vez. Cambiar `ADMIN_PASSWORD
 
 ## Qué se puede probar
 
+- La página de inicio tiene portafolio, Sobre mí, Equipo, Tomas con drone y preguntas frecuentes.
+- Cada una de las tres publicaciones abre su propia galería de fotos.
 - Un cliente solicita una cobertura sin registrarse y selecciona uno o más servicios.
 - Se validan los campos, el correo, el teléfono, la fecha futura y los horarios.
 - La solicitud queda pendiente. El administrador puede confirmarla o rechazarla.
@@ -46,6 +48,21 @@ Para este laboratorio se supone que hay **un solo equipo de cobertura**. Cada ev
 Si existe una reserva confirmada de 14:00 a 16:00, se rechaza una nueva solicitud de 15:00 a 17:00. Se permite una que comience a las 16:00. Las pendientes no bloquean la agenda: se vuelve a verificar al confirmarlas. Un bloqueo de MySQL protege la operación para que dos confirmaciones simultáneas no ocupen el mismo horario. Al cancelar, se libera la franja horaria.
 
 Los servicios y sus precios iniciales son ejemplos, en pesos argentinos. No hay pagos ni edición de precios desde el panel.
+
+## Agregar las fotos del portafolio
+
+La portada está en `/` y el formulario ahora está en `/reservas.php`. Para completar las tres publicaciones:
+
+1. Copia tus imágenes a `public/fotos/`.
+2. Para la primera cobertura, usa nombres como `cobertura-1-1.jpg`, `cobertura-1-2.jpg` y `cobertura-1-3.jpg`.
+3. Para la segunda, usa `cobertura-2-1.jpg`, `cobertura-2-2.jpg`, etc. Para la tercera, `cobertura-3-1.jpg`, etc.
+4. Abre `portafolio.php` y cambia el título, la categoría, el resumen y el texto de cada publicación por los datos de tu cobertura.
+
+Las fotos aparecen automáticamente al recargar la página. La primera de cada grupo se usa como portada de la publicación. Se aceptan JPG, JPEG, PNG y WebP; no hace falta cambiar la extensión real de tus archivos. Por ejemplo, también sirve `cobertura-1-1.png`.
+
+Puedes agregar imágenes para otras secciones con estos nombres: `portada.jpg`, `sobre-mi.jpg`, `equipo.jpg` y `drone.jpg`, usando cualquiera de los formatos admitidos. Hasta que las agregues, se muestran espacios de espera. Los textos iniciales de las coberturas son editables; no incluyen nombres ni fechas de clientes.
+
+No hay un panel de carga de fotos: para mantener el laboratorio sencillo se copian a esa carpeta. Los textos de presentación, equipo y preguntas frecuentes se editan en `public/index.php`.
 
 ## APIs
 
@@ -72,6 +89,7 @@ Sin credenciales, la reserva se confirma y el panel muestra **no configurado**. 
 - `public/`: páginas, estilos y JavaScript que ve el navegador.
 - `config.php`: conexión PDO y sesión.
 - `funciones.php`: validaciones y operaciones de reservas.
+- `portafolio.php`: textos de las tres publicaciones y búsqueda de sus fotos.
 - `integraciones.php`: llamadas a Open-Meteo y WhatsApp.
 - `crear_admin.php`: alta del administrador desde la terminal.
 - `database.sql`: las cinco tablas y servicios de ejemplo.
@@ -95,4 +113,4 @@ Se comprueban el acceso de administrador, los datos inválidos, la creación de 
 
 ## Ramas
 
-`main` contiene el laboratorio completo y `develop` sirve para continuar trabajando. Las ramas `funcionalidad/reservas`, `funcionalidad/administracion` y `funcionalidad/integraciones` organizan los avances de cada parte. Para ejecutar el proyecto completo, usa `main`.
+`main` contiene el laboratorio completo y `develop` sirve para continuar trabajando. Las ramas `funcionalidad/reservas`, `funcionalidad/administracion`, `funcionalidad/integraciones` y `funcionalidad/portafolio` organizan los avances de cada parte. Para ejecutar el proyecto completo, usa `main`.
