@@ -150,3 +150,30 @@ function validar_solicitud(array $entrada, array $servicios_validos): array
     }
     return [$datos, array_unique($ids), array_unique($errores)];
 }
+
+function cambiar_estado(int $id, string $destino): void
+{
+    con_agenda(function (PDO $pdo) use ($id, $destino): void {
+        $reserva = solicitud($id);
+        $transiciones = [
+            'pendiente' => ['confirmada', 'rechazada'],
+            'confirmada' => ['cancelada', 'realizada'],
+        ];
+        if (!$reserva || !in_array($destino, $transiciones[$reserva['estado']] ?? [], true)) {
+            throw new DomainException('La solicitud ya cambió de estado o la acción no es válida.');
+        }
+        if ($destino === 'confirmada') {
+            if (new DateTimeImmutable($reserva['fecha_evento'] . ' ' . $reserva['hora_inicio']) <= new DateTimeImmutable()) {
+                throw new DomainException('No se puede confirmar un evento que ya comenzó.');
+            }
+            if (ocupada($pdo, $reserva['fecha_evento'], $reserva['hora_inicio'], $reserva['hora_fin'], $id)) {
+                throw new DomainException('No se puede confirmar: el horario se superpone con otra reserva confirmada.');
+            }
+        }
+        if ($destino === 'realizada' && new DateTimeImmutable($reserva['fecha_evento'] . ' ' . $reserva['hora_fin']) > new DateTimeImmutable()) {
+            throw new DomainException('El evento todavía no terminó.');
+        }
+        $consulta = $pdo->prepare('UPDATE solicitudes SET estado = ? WHERE id_solicitud = ?');
+        $consulta->execute([$destino, $id]);
+    });
+}
