@@ -64,6 +64,8 @@ Puedes agregar imágenes para otras secciones con estos nombres: `portada.jpg`, 
 
 No hay un panel de carga de fotos: para mantener el laboratorio sencillo se copian a esa carpeta. Los textos de presentación, equipo y preguntas frecuentes se editan en `public/index.php`.
 
+La presentación identifica a Dennis como productor y director. La sección Equipo muestra las herramientas por categoría; `equipo.jpg` se usa para una foto del equipamiento. Puedes personalizar los textos con tus marcas y modelos cuando quieras.
+
 ## APIs
 
 **Open-Meteo:** no requiere clave. Busca la ciudad y consulta el pronóstico diario de la fecha seleccionada. Solo se consulta desde hoy hasta 15 días hacia adelante; para eventos más lejanos se muestra un aviso. Necesita acceso a `geocoding-api.open-meteo.com` y `api.open-meteo.com`.

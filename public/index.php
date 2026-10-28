@@ -5,7 +5,7 @@ cabecera('Fotografía y video');
 $portada = foto_portafolio('portada');
 ?>
 <section class="portada">
-    <div class="portada-texto"><p class="etiqueta">DM PRODUCCIONES · FOTOGRAFÍA Y VIDEO</p><h1>Hay momentos que merecen quedarse.</h1><p>Fotografía, video y otra mirada desde el aire. Soy Dennis y te acompaño a guardar la historia de tu próximo evento.</p><div class="acciones"><a class="boton" href="/reservas.php">Contame sobre tu evento</a><a class="link-flecha" href="#portafolio">Ver mis trabajos <span aria-hidden="true">↗</span></a></div></div>
+    <div class="portada-texto"><p class="etiqueta">DM PRODUCCIONES · FOTOGRAFÍA Y VIDEO</p><h1>Hay momentos que merecen quedarse.</h1><p>Soy Dennis, productor y director de DM Producciones. Te acompaño a contar la historia de tu evento con fotografía, video y tomas desde el aire.</p><div class="acciones"><a class="boton" href="/reservas.php">Contame sobre tu evento</a><a class="link-flecha" href="#portafolio">Ver mis trabajos <span aria-hidden="true">↗</span></a></div></div>
     <div class="portada-imagen"><?php if ($portada): ?><img src="<?= e($portada) ?>" alt="Una cobertura de DM Producciones" fetchpriority="high"><?php else: ?><div class="marca-portada" aria-label="DM Producciones, fotografía y video"><span class="iniciales">DM</span><span>PRODUCCIONES</span><span class="marca-linea">FOTOGRAFÍA / VIDEO / DRONE</span></div><?php endif; ?><span class="sello-portada">Una historia, muchas miradas.</span></div>
 </section>
 
@@ -22,14 +22,21 @@ $portada = foto_portafolio('portada');
 </section>
 
 <section class="seccion sobre-mi" id="sobre-mi" aria-labelledby="titulo-sobre-mi">
-    <div class="foto-personal"><?php $foto = foto_portafolio('sobre-mi'); if ($foto): ?><img src="<?= e($foto) ?>" alt="Dennis Mejia, fotógrafo de DM Producciones" loading="lazy"><?php else: espacio_foto('Detrás de la cámara'); endif; ?></div>
-    <div><p class="etiqueta">SOBRE MÍ</p><h2 id="titulo-sobre-mi">Hola, soy Dennis.</h2><p>Trabajo haciendo coberturas de fotografía y video para eventos. DM Producciones es el espacio donde comparto mi trabajo y organizo cada nueva cobertura.</p><p>Me interesa registrar lo que pasa de forma cercana: las personas, los detalles y esos momentos que a veces pasan rápido. Antes de cada evento, conversamos sobre lo que necesitás para preparar la cobertura.</p><a class="link-flecha" href="/reservas.php">Hablemos de tu idea <span aria-hidden="true">↗</span></a></div>
+    <div class="foto-personal"><?php $foto = foto_portafolio('sobre-mi'); if ($foto): ?><img src="<?= e($foto) ?>" alt="Dennis Mejia, productor y director de DM Producciones" loading="lazy"><?php else: espacio_foto('Detrás de la cámara'); endif; ?></div>
+    <div><p class="etiqueta">SOBRE MÍ</p><h2 id="titulo-sobre-mi">Hola, soy Dennis.</h2><p><strong>Productor y director de DM Producciones.</strong></p><p>Trabajo haciendo coberturas de fotografía y video para eventos. Me encargo de planificar cada producción y dirigir la cobertura, desde la primera conversación hasta la entrega del material.</p><p>Me interesa registrar lo que pasa de forma cercana: las personas, los detalles y esos momentos que a veces pasan rápido. Antes de cada evento, conversamos sobre lo que necesitás para preparar la cobertura.</p><a class="link-flecha" href="/reservas.php">Hablemos de tu idea <span aria-hidden="true">↗</span></a></div>
 </section>
 
 <section class="seccion" id="equipo" aria-labelledby="titulo-equipo">
-    <div class="titulo-seccion"><div><p class="etiqueta">DETRÁS DE CADA COBERTURA</p><h2 id="titulo-equipo">Equipo de trabajo</h2></div><p>La cobertura se organiza según el tipo de evento y el servicio que elijas.</p></div>
-    <?php $foto = foto_portafolio('equipo'); if ($foto): ?><img class="equipo-foto" src="<?= e($foto) ?>" alt="Equipo de trabajo de DM Producciones" loading="lazy"><?php endif; ?>
-    <div class="equipo-lista"><article><span class="numero">01</span><h3>Fotografía</h3><p>Retratos, momentos espontáneos y detalles del evento. La planificación empieza con lo que querés recordar.</p></article><article><span class="numero">02</span><h3>Video</h3><p>El movimiento y el sonido también cuentan la historia. Revisamos juntos qué momentos incluir en la filmación.</p></article><article><span class="numero">03</span><h3>Edición</h3><p>Después de la cobertura, llega la selección y edición del material para preparar la entrega.</p></article></div>
+    <div class="titulo-seccion"><div><p class="etiqueta">EL EQUIPO TÉCNICO</p><h2 id="titulo-equipo">Herramientas de trabajo</h2></div><p>Las herramientas para cada etapa: registrar, dar luz, captar el sonido y editar.</p></div>
+    <?php $foto = foto_portafolio('equipo'); if ($foto): ?><img class="equipo-foto" src="<?= e($foto) ?>" alt="Cámaras y herramientas de DM Producciones" loading="lazy"><?php endif; ?>
+    <div class="equipo-lista">
+        <article><span class="numero">01</span><h3>Cámaras y lentes</h3><p>Para registrar fotografías y video, desde un retrato hasta una vista general del evento.</p></article>
+        <article><span class="numero">02</span><h3>Audio</h3><p>Micrófonos y grabación de sonido para conservar las voces, los discursos y el ambiente del lugar.</p></article>
+        <article><span class="numero">03</span><h3>Iluminación</h3><p>Luces y accesorios para acompañar las condiciones del lugar y preparar cada toma.</p></article>
+        <article><span class="numero">04</span><h3>Trípodes y estabilización</h3><p>Soportes para mantener la imagen estable durante la filmación y los movimientos de cámara.</p></article>
+        <article><span class="numero">05</span><h3>Drone</h3><p>Para las tomas aéreas, cuando el lugar, el clima y las condiciones del vuelo lo permiten.</p></article>
+        <article><span class="numero">06</span><h3>Edición</h3><p>Herramientas de selección, montaje y ajuste de imagen y sonido para preparar la entrega digital.</p></article>
+    </div>
 </section>
 
 <section class="seccion drone" id="drone" aria-labelledby="titulo-drone">
